@@ -19,10 +19,10 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore DevOpsLab.sln
+        run: dotnet restore DevOpsLab.slnx
 
       - name: Build solution
-        run: dotnet build DevOpsLab.sln --no-restore
+        run: dotnet build DevOpsLab.slnx --no-restore
 
       - name: Run tests
-        run: dotnet test DevOpsLab.sln --no-build
+        run: dotnet test DevOpsLab.slnx --no-build

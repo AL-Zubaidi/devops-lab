@@ -16,10 +16,13 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore DevOpsLab.sln
 
-      - name: Build application
-        run: dotnet build --no-restore
+      - name: Build solution
+        run: dotnet build DevOpsLab.sln --no-restore
+
+      - name: Run tests
+        run: dotnet test DevOpsLab.sln --no-build

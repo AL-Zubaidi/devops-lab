@@ -26,3 +26,12 @@ jobs:
 
       - name: Run tests
         run: dotnet test DevOpsLab.slnx --no-build
+        
+      - name: Publish application
+        run: dotnet publish DevOpsLab.csproj --configuration Release --output ./publish
+        
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: devops-lab
+          path: ./publish

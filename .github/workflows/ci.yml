@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t devops-lab:ci .
+        run: docker build -t devops-lab:${{ github.sha }} .
 
       - name: Run Docker container
-        run: docker run --rm devops-lab:ci
+        run: docker run --rm devops-lab:${{ github.sha }}

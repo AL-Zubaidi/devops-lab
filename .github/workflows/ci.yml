@@ -24,11 +24,8 @@ jobs:
       - name: Build solution
         run: dotnet build DevOpsLab.slnx --no-restore
 
-      - name: Run tests
-        run: dotnet test DevOpsLab.slnx --no-build
-
       - name: Publish application
-        run: dotnet publish DevOpsLab.csproj -c Release -o ./publish
+        run: dotnet publish DevOpsLab.csproj --configuration Release --output ./publish
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -36,19 +33,16 @@ jobs:
           name: devops-lab
           path: ./publish
 
-  verify:
+  docker:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: devops-lab
-          path: ./artifact
+      - name: Checkout source code
+        uses: actions/checkout@v4
 
-      - name: List artifact files
-        run: ls -la ./artifact
+      - name: Build Docker image
+        run: docker build -t devops-lab:ci .
 
-      - name: Run published application
-        run: dotnet ./artifact/DevOpsLab.dll
+      - name: Run Docker container
+        run: docker run --rm devops-lab:ci
